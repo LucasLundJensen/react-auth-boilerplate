@@ -1,4 +1,10 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This boilerplate is still very under development and therefore might not include any of the soon-to-be features like:
+Navigation
+Authorization
+Authentication
+and more...
+
+I will update the repo when the MVP is done.
 
 ## Available Scripts
 
