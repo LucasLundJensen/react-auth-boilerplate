@@ -1,0 +1,5 @@
+.navigation {
+    display: flex;
+    background-color: #181818;
+    min-height: 80px;
+}
