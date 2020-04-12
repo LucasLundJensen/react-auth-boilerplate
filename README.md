@@ -1,10 +1,14 @@
 This boilerplate is still very under development and therefore might not include any of the soon-to-be features like:
+
 Navigation
+
 Authorization
+
 Authentication
+
 and more...
 
-I will update the repo when the MVP is done.
+README will be updated when enough has been added to fill it out :)
 
 ## Available Scripts
 
