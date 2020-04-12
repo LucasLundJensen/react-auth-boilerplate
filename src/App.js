@@ -4,6 +4,7 @@ import {
   Switch,
   Route,
 } from "react-router-dom";
+import { Provider } from 'react-redux';
 import './App.css';
 import Home from './pages/Home/Home';
 import Navigation from './components/Navigation/Navigation';
