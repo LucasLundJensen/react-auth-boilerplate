@@ -8,7 +8,7 @@ export default function Navigation() {
     return (
         <div className="navigation">
             <Link to="/">Home</Link>
-            <Link to="/test">Test</Link>
+            <Link to="/login">Login</Link>
         </div>
     )
 }
