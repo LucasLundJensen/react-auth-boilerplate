@@ -4,8 +4,9 @@ import { Redirect } from 'react-router-dom'
 
 import { userActions } from '../../store/actions';
 
-export default function Login() {
+export default function Register() {
     const [redirect, setRedirect] = useState(false);
+    const [username, setUsername] = useState();
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
     const dispatch = useDispatch();
@@ -19,18 +20,22 @@ export default function Login() {
 
     async function onSubmit(e) {
         e.preventDefault();
-        dispatch(userActions.login(email, password));
+        dispatch(userActions.register(username, email, password));
     }
     return (
         <div>
-            {redirect ? <Redirect push to="/profile"/> : <></>}
+            {redirect ? <Redirect to="/profile"/> : <></>}
             <div className="container-fluid">
-                <h1>Login page</h1>
+                <h1>Register page</h1>
 
                 <form onSubmit={onSubmit}>
+                    <label>Username</label>
+                    <input type="text" name="username" onChange={event => setUsername(event.target.value)}/>
+                    <label>Email</label>
                     <input type="text" name="email" onChange={event => setEmail(event.target.value)}/>
+                    <label>Password</label>
                     <input type="password" name="password" onChange={event => setPassword(event.target.value)}/>
-                    <button type="submit">Login</button>
+                    <button type="submit">Register</button>
                 </form>
             </div>
         </div>

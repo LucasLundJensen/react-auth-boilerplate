@@ -41,6 +41,8 @@ const authenticationReducer = (state = initialState, action) => {
             return request(state, action);
         case userConstants.LOGIN_FAILURE:
             return failure(state, action);
+        case userConstants.REGISTER_FAILURE:
+            return failure(state, action);
         case userConstants.LOGIN_SUCCESS:
             return success(state, action);
         case userConstants.LOGOUT:
