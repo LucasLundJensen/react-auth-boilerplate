@@ -1,27 +1,36 @@
 import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { Link } from "react-router-dom";
 import { ProtectedLink } from '../Authorized/ProtectedLink';
+import { userActions } from '../../store/actions';
+
 import './Navigation.css';
-import {
-    Link
-} from "react-router-dom";
 
 export default function Navigation() {
-    const [authed, setAuthed] = useState(false);
-    const token = useSelector(state => state.authenticationReducer.token);    
+    const token = useSelector(state => state.authenticationReducer.token);
+    const dispatch = useDispatch();
 
-    useEffect(() => {
-        if (token) setAuthed(true);
-        else setAuthed(false);
-    }, [token])
+    function logout() {
+        dispatch(userActions.logout());
+    }
 
-    return (
-        <div className="navigation">
-            <Link to="/">Home</Link>
-            <Link to="/login">Login</Link>
-            <Link to="/register">Register</Link>
-            <ProtectedLink to="/profile">Profile</ProtectedLink>
-            <ProtectedLink to="/logout">Logout</ProtectedLink>
-        </div>
-    )
+    if(token) {
+        return (
+            <div className="navigation">
+                <Link to="/">Home</Link>
+                <Link to="/login">Login</Link>
+                <Link to="/register">Register</Link>
+                <ProtectedLink to="/profile">Profile</ProtectedLink>
+                <p onClick={logout}>Logout</p>
+            </div>
+        )
+    } else {
+        return (
+            <div className="navigation">
+                <Link to="/">Home</Link>
+                <Link to="/login">Login</Link>
+                <Link to="/register">Register</Link>
+            </div>
+        )
+    }
 }

@@ -1,8 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 export const ProtectedLink = (props) => {
-    if(localStorage.getItem("JWT_TOKEN")) {
+    const token = useSelector(state => state.authenticationReducer.token);
+
+    if(token) {
         return (
             <Link {...props} />
         )
@@ -10,5 +13,5 @@ export const ProtectedLink = (props) => {
         return (
             <></>
         );
-    }    
+    }  
 }

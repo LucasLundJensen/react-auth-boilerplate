@@ -23,16 +23,14 @@ function login(email, password) {
             // Dispatch that the authentication request has been sent
             dispatch(request());
 
-            const res = await axios.post('http://localhost:3001/api/auth/login', { email: email, password: password });
+            const res = await axios.post('http://localhost:3001/api/auth/login', { email: email, password: password }, { withCredentials: true });
 
             // Dispatch that the authentication request was successful.
             dispatch(success(res.data.token, res.data.userId));
 
-            // Set the local storage items
-            localStorage.setItem("JWT_TOKEN", res.data.token);
-            localStorage.setItem("USER_ID", res.data.userId);
+            // Set LocalStorage to only things we frequently read maybe?
 
-            // Not sure if this is needed, will have to do some testing.
+            // This sets the default Authrization header for axios to use the token, this makes it so we don't have to send our auth token with every time manually.
             axios.defaults.headers.common["Authorization"] = res.data.token;
 
         } catch(err) {
@@ -46,13 +44,11 @@ function register(username, email, password) {
     return async dispatch => {
         try {
             dispatch(request());
-
             const res = await axios.post('http://localhost:3001/api/auth/register', { username: username, email: email, password: password });
+            
+            // Set LocalStorage to only things we frequently read maybe?
 
             dispatch(success(res.data.token, res.data.userId));
-
-            localStorage.setItem("JWT_TOKEN", res.data.token);
-            localStorage.setItem("USER_ID", res.data.userId);
             axios.defaults.headers.common["Authorization"] = res.data.token;
 
         } catch (err) {
@@ -62,9 +58,6 @@ function register(username, email, password) {
 }
 
 function logout() {
-    localStorage.removeItem("JWT_TOKEN");
-    localStorage.removeItem("USER_ID");
-
     return {
         token: null,
         userId: null,
