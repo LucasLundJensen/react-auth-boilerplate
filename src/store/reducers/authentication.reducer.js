@@ -31,7 +31,8 @@ function failure(state, action) {
 function logout(state, action) {
     return updateObject(state, {
         token: null,
-        userId: null
+        userId: null,
+        error: null
     })
 }
 

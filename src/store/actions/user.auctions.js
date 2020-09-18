@@ -23,7 +23,7 @@ function login(email, password) {
             // Dispatch that the authentication request has been sent
             dispatch(request());
 
-            const res = await axios.post('http://localhost:3001/api/auth/login', { email: email, password: password }, { withCredentials: true });
+            const res = await axios.post('/api/auth/login', { email: email, password: password }, { withCredentials: true });
 
             // Dispatch that the authentication request was successful.
             dispatch(success(res.data.token, res.data.userId));
@@ -31,7 +31,8 @@ function login(email, password) {
             // Set LocalStorage to only things we frequently read maybe?
 
             // This sets the default Authrization header for axios to use the token, this makes it so we don't have to send our auth token with every time manually.
-            axios.defaults.headers.common["Authorization"] = res.data.token;
+            // Not sure we want this, as we're setting the token on login anyways, and saving it in an httpOnly cookie.
+            // axios.defaults.headers.common["Authorization"] = res.data.token;
 
         } catch(err) {
             // If fails, dispatch the failure.
@@ -44,7 +45,7 @@ function register(username, email, password) {
     return async dispatch => {
         try {
             dispatch(request());
-            const res = await axios.post('http://localhost:3001/api/auth/register', { username: username, email: email, password: password });
+            const res = await axios.post('/api/auth/register', { username: username, email: email, password: password }, { withCredentials: true });
             
             // Set LocalStorage to only things we frequently read maybe?
 
@@ -57,12 +58,24 @@ function register(username, email, password) {
     }
 }
 
-function logout() {
+function unauthorize() {
     return {
         token: null,
         userId: null,
         error: null,
         type: userConstants.LOGOUT
+    }
+}
+
+function logout() {
+    return async dispatch => {
+        try {
+            const res = await axios.post('/api/auth/logout', { withCredentials: true });
+            dispatch(unauthorize());
+
+        } catch (err) {
+            dispatch(failure(userConstants.LOGOUT, err.response.data.message))
+        }
     }
 }
 
