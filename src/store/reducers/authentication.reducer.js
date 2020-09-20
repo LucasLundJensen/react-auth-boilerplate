@@ -15,7 +15,7 @@ function request(state, action) {
 function success(state, action) {
     return updateObject(state, {
         token: action.token,
-        userId: action.token,
+        userId: action.userId,
         loading: false,
         error: null
     })
