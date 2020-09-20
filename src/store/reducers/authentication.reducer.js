@@ -5,7 +5,7 @@ const initialState = {
     token: null,
     userId: null,
     error: null,
-    loading: false
+    loading: true
 };
 
 function request(state, action) {

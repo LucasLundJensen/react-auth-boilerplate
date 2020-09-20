@@ -1,6 +1,6 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import "./App.css";
 import Home from "./pages/Home/Home";
@@ -12,9 +12,9 @@ import { ProtectedRoute } from "./components/Authorized/ProtectedRoute";
 import NotFound from "./pages/NotFound/NotFound";
 import { userActions } from './store/actions/'
 import { useEffect } from "react";
-
 function App() {
   const dispatch = useDispatch();
+  const loading = useSelector(state => state.authenticationReducer.loading);
 
   useEffect(() => {
     dispatch(userActions.authorize());
@@ -24,6 +24,9 @@ function App() {
     <div>
       <Router>
         <Navigation />
+        { loading ? 
+        <></> 
+        :
         <Switch>
           <Route path="/" exact>
             <Home />
@@ -39,6 +42,7 @@ function App() {
             <NotFound />
           </Route>
         </Switch>
+        }
       </Router>
     </div>
   );
