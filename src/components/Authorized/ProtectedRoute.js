@@ -2,7 +2,7 @@ import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
-export const ProtectedRoute = ({component: Component, ...rest}) => {
+const ProtectedRoute = ({component: Component, ...rest}) => {
     const token = useSelector(state => state.authenticationReducer.token);
 
     return (
@@ -17,3 +17,5 @@ export const ProtectedRoute = ({component: Component, ...rest}) => {
         }/>
     )
 }
+
+export default ProtectedRoute;

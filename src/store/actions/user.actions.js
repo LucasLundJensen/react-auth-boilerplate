@@ -19,7 +19,7 @@ function request() {
 };
 
 // Authentication with just JWT token.
-export function authorize() {
+function authorize() {
     return async dispatch => {
         try {
             dispatch(request());

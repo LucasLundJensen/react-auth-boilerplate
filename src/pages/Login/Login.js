@@ -1,21 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom'
-
 import { userActions } from '../../store/actions';
 
 export default function Login() {
     const [redirect, setRedirect] = useState(false);
-    const [email, setEmail] = useState();
-    const [password, setPassword] = useState();
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
     const dispatch = useDispatch();
-    const token = useSelector(state => state.authenticationReducer.token);    
+    const userId = useSelector(state => state.authenticationReducer.userId);    
 
     useEffect(() => {
-        if(token) {
+        if(userId) {
             setRedirect(true);
         }
-    }, [token])
+    }, [userId])
 
     async function onSubmit(e) {
         e.preventDefault();
